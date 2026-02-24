@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍳 바쁘다 바빠 든든파파 모닝 레시피</title>
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --warm: #F5E6D0;
+    --orange: #E8845A;
+    --orange-dark: #C96A40;
+    --brown: #5C3D2E;
+    --text: #2C1810;
+    --text-light: #7A5C4F;
+    --yellow: #F2C84B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Gamja Flower', 'Noto Sans KR', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--brown);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -40px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .header-emoji {
+    font-size: 52px;
+    display: block;
+    margin-bottom: 12px;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  header h1 {
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #FDF6EC;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  header p {
+    color: rgba(253,246,236,0.6);
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  /* NAV TABS */
+  .nav {
+    display: flex;
+    justify-content: center;
+    background: var(--warm);
+    border-bottom: 2px solid rgba(92,61,46,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-btn {
+    padding: 12px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-light);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { color: var(--orange); background: rgba(232,132,90,0.05); }
+  .nav-btn.active {
+    color: var(--orange-dark);
+    border-bottom-color: var(--orange);
+    font-weight: 700;
+  }
+
+  /* MAIN CONTENT */
+  main { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-title {
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--brown);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--warm);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* FILTER */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: 2px solid var(--warm);
+    background: white;
+    cursor: pointer;
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 15px;
+    color: var(--text-light);
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--orange); color: var(--orange); }
+  .filter-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+  }
+
+  /* CARDS */
+  .card.hidden { display: none; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(92,61,46,0.08);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(92,61,46,0.07);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(92,61,46,0.15);
+  }
+  .card-thumb {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    overflow: hidden;
+  }
+  .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .card-thumb.main-bg    { background: linear-gradient(135deg, #FFF0E6, #FFD6B8); }
+  .card-thumb.sub-bg     { background: linear-gradient(135deg, #E8F4EA, #C8E6CC); }
+  .card-thumb.dessert-bg { background: linear-gradient(135deg, #FFF0F5, #FFD6E8); }
+  .card-thumb.pasta-bg   { background: linear-gradient(135deg, #FFFDE7, #FFF9C4); }
+
+  .card-body { padding: 16px; }
+  .card-name {
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 17px;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .card-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .badge-time { background: #FFF3E0; color: #E65100; }
+  .badge-diff { background: #F3E5F5; color: #6A1B9A; }
+  .badge-kcal { background: #E8F5E9; color: #2E7D32; }
+
+  /* 빈 카테고리 */
+  .empty-msg {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 2;
+  }
+  .empty-msg span { font-size: 40px; display: block; margin-bottom: 12px; }
+
+  /* MODAL */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(44,24,16,0.5);
+    z-index: 200;
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+
+  .modal {
+    background: white;
+    border-radius: 20px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(44,24,16,0.25);
+  }
+  .modal-header {
+    padding: 32px 28px 20px;
+    border-bottom: 1px solid var(--warm);
+    background: white;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .modal-emoji { font-size: 40px; margin-bottom: 8px; display: block; }
+  .modal-title {
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 24px;
+    color: var(--text);
+  }
+  .modal-close {
+    background: var(--warm);
+    border: none;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-light);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: #E8D5C0; }
+  .modal-body { padding: 24px 28px 32px; }
+
+  .meta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+
+  .modal-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--orange);
+    margin-bottom: 12px;
+    margin-top: 24px;
+  }
+  .modal-section-title:first-of-type { margin-top: 0; }
+
+  .ingredient-list { list-style: none; }
+  .ingredient-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #F5F0EB;
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ingredient-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .step-list { list-style: none; counter-reset: steps; }
+  .step-list li {
+    counter-increment: steps;
+    padding: 10px 0 10px 44px;
+    border-bottom: 1px solid #F5F0EB;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    position: relative;
+  }
+  .step-list li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0; top: 10px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .tip-box {
+    margin-top: 20px;
+    background: #FFF8F0;
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+  .tip-box strong { color: var(--orange-dark); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text-light);
+    font-size: 12px;
+    background: var(--warm);
+    border-top: 1px solid rgba(92,61,46,0.1);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="header-emoji">🍳</span>
+  <h1>바쁘다 바빠 든든파파 모닝 레시피</h1>
+  <p>아빠표 아침식사, 오늘도 든든하게!</p>
+</header>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="showSection('main', this)">🍚 메인</button>
+  <button class="nav-btn" onclick="showSection('sub', this)">🥗 사이드</button>
+  <button class="nav-btn" onclick="showSection('dessert', this)">🍰 디저트</button>
+  <button class="nav-btn" onclick="showSection('pasta', this)">🍝 파스타</button>
+</nav>
+
+<main>
+
+  <!-- 메인 -->
+  <div class="section active" id="main">
+    <h2 class="section-title">🍚 메인</h2>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCards('main', '전체', this)">전체</button>
+      <button class="filter-btn" onclick="filterCards('main', '쉬움', this)">⭐ 쉬움</button>
+      <button class="filter-btn" onclick="filterCards('main', '보통', this)">⭐⭐ 보통</button>
+      <button class="filter-btn" onclick="filterCards('main', '어려움', this)">⭐⭐⭐ 어려움</button>
+    </div>
+    <div class="cards" id="main-cards">
+      <div class="card" onclick="openModal('caramelBanana')" data-diff="쉬움">
+        <div class="card-thumb main-bg"><img src="caramelbananatoast.png" alt="카라멜 바나나 토스트"></div>
+        <div class="card-body">
+          <div class="card-name">카라멜 바나나 토스트</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 5분</span>
+            <span class="badge badge-diff">⭐ 쉬움</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 사이드 -->
+  <div class="section" id="sub">
+    <h2 class="section-title">🥗 사이드</h2>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCards('sub', '전체', this)">전체</button>
+      <button class="filter-btn" onclick="filterCards('sub', '쉬움', this)">⭐ 쉬움</button>
+      <button class="filter-btn" onclick="filterCards('sub', '보통', this)">⭐⭐ 보통</button>
+      <button class="filter-btn" onclick="filterCards('sub', '어려움', this)">⭐⭐⭐ 어려움</button>
+    </div>
+    <div class="cards" id="sub-cards">
+      <div class="empty-msg"><span>🥗</span>곧 레시피가 추가될 예정이에요!</div>
+    </div>
+  </div>
+
+  <!-- 디저트 -->
+  <div class="section" id="dessert">
+    <h2 class="section-title">🍰 디저트</h2>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCards('dessert', '전체', this)">전체</button>
+      <button class="filter-btn" onclick="filterCards('dessert', '쉬움', this)">⭐ 쉬움</button>
+      <button class="filter-btn" onclick="filterCards('dessert', '보통', this)">⭐⭐ 보통</button>
+      <button class="filter-btn" onclick="filterCards('dessert', '어려움', this)">⭐⭐⭐ 어려움</button>
+    </div>
+    <div class="cards" id="dessert-cards">
+      <div class="empty-msg"><span>🍰</span>곧 레시피가 추가될 예정이에요!</div>
+    </div>
+  </div>
+
+  <!-- 파스타 -->
+  <div class="section" id="pasta">
+    <h2 class="section-title">🍝 파스타</h2>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCards('pasta', '전체', this)">전체</button>
+      <button class="filter-btn" onclick="filterCards('pasta', '쉬움', this)">⭐ 쉬움</button>
+      <button class="filter-btn" onclick="filterCards('pasta', '보통', this)">⭐⭐ 보통</button>
+      <button class="filter-btn" onclick="filterCards('pasta', '어려움', this)">⭐⭐⭐ 어려움</button>
+    </div>
+    <div class="cards" id="pasta-cards">
+      <div class="card" onclick="openModal('alfredo')" data-diff="쉬움">
+        <div class="card-thumb pasta-bg">🧀</div>
+        <div class="card-body">
+          <div class="card-name">알프레도 리가토니</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 20분</span>
+            <span class="badge badge-diff">⭐ 쉬움</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  🍳 바쁘다 바빠 든든파파 모닝 레시피 · GitHub Pages로 만들어진 페이지
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+const recipes = {
+  caramelBanana: {
+    emoji: '🍌', name: '카라멜 바나나 토스트', time: '5분', diff: '⭐ 쉬움', kcal: null,
+    ingredients: ['바나나 1개', '무염버터 10g', '꿀 약간', '식빵 1~2장', '슬라이스 치즈 (선택)'],
+    steps: [
+      '팬에 무염버터를 두른 뒤, 바나나를 길게 썰어 올린다.',
+      '바나나 위에 꿀을 살짝 뿌려 노릇하게 카라멜라이징 한다.',
+      '바싹 구운 토스트 위에 구운 바나나를 올려 완성!'
+    ],
+    tip: '아이용은 바나나를 먹기 좋은 크기로 잘라주세요. 치즈가 있다면 얇게 슬라이스해서 올리면 더 맛있어요. 팬에 토스트를 눕혀 구울 수 있다면 슬라이스 치즈나 모짜렐라 치즈를 얹어 녹여보세요!'
+  },
+  alfredo: {
+    emoji: '🧀', name: '알프레도 리가토니', time: '20분', diff: '⭐ 쉬움', kcal: null,
+    ingredients: [
+      '리가토니면 100g', '물 1L', '소금 10g',
+      '무염버터 20g', '파르미지아노 레지아노 (또는 파마산 치즈) 적당량',
+      '후추 약간', '소금 약간'
+    ],
+    steps: [
+      '끓는 물 1L에 소금 10g을 넣고 리가토니면 100g을 봉지에 적힌 시간만큼 삶는다. ⚠️ 면수는 반드시 버리지 않고 보관!',
+      '무염버터 20g을 전자레인지에 20~30초 돌려 액체처럼 녹인다.',
+      '삶은 면과 녹인 버터를 볼에 넣고, 면수를 아주 조금씩 추가하며 만테까레(유화)해준다. ⚠️ 면수를 너무 많이 넣으면 국이 되므로 조금씩!',
+      '치즈와 후추를 적당량 갈아서 볼에 넣고 함께 섞어준다.',
+      '팬으로 옮긴 뒤 후추, 소금, 치즈를 소량 더 뿌려주면 완성!'
+    ],
+    tip: '포인트는 만테까레! 면수를 아주 살짝씩 넣으며 버터·치즈·면이 잘 융화되어 크리미한 질감이 되도록 하는 게 핵심이에요.'
+  }
+};
+
+function filterCards(sectionId, diff, btn) {
+  const section = document.getElementById(sectionId);
+  const cards = section.querySelectorAll('.card');
+  const btns = section.querySelectorAll('.filter-btn');
+  btns.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  cards.forEach(card => {
+    if (diff === '전체' || card.dataset.diff === diff) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function openModal(key) {
+  const r = recipes[key];
+  const modal = document.getElementById('modal');
+  modal.innerHTML = `
+    <div class="modal-header">
+      <div>
+        <span class="modal-emoji">${r.emoji}</span>
+        <div class="modal-title">${r.name}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="meta-row">
+        <span class="badge badge-time">⏱ ${r.time}</span>
+        <span class="badge badge-diff">${r.diff}</span>
+        ${r.kcal ? `<span class="badge badge-kcal">🔥 ${r.kcal}</span>` : ''}
+      </div>
+      <div class="modal-section-title">재료</div>
+      <ul class="ingredient-list">${r.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+      <div class="modal-section-title">만드는 법</div>
+      <ol class="step-list">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      <div class="tip-box"><strong>💡 팁</strong> ${r.tip}</div>
+    </div>
+  `;
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('overlay')) {
+    document.getElementById('overlay').classList.remove('open');
+  }
+}
+</script>
+</body>
+</html>
