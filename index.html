@@ -131,16 +131,28 @@
   }
 
   /* FILTER */
-  .filter-bar {
+  .filter-wrap {
     display: flex;
-    gap: 6px;
+    flex-direction: column;
+    gap: 8px;
     margin-bottom: 24px;
-    flex-wrap: nowrap;
+  }
+  .filter-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     overflow-x: auto;
-    padding-bottom: 4px;
+    padding-bottom: 2px;
+  }
+  .filter-label {
+    font-size: 11px;
+    color: var(--text-light);
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 30px;
   }
   .filter-btn {
-    padding: 7px 14px;
+    padding: 6px 12px;
     border-radius: 30px;
     border: 2px solid var(--warm);
     background: white;
@@ -151,6 +163,12 @@
     transition: all 0.2s;
     white-space: nowrap;
     flex-shrink: 0;
+  }
+  .filter-btn:hover { border-color: var(--orange); color: var(--orange); }
+  .filter-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
   }
   .filter-btn:hover { border-color: var(--orange); color: var(--orange); }
   .filter-btn.active {
@@ -251,6 +269,23 @@
     justify-content: space-between;
     align-items: flex-start;
   }
+  .modal-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .modal-action-btn {
+    background: var(--warm);
+    border: none;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-action-btn:hover { background: #E8D5C0; }
   .modal-emoji { font-size: 40px; margin-bottom: 8px; display: block; }
   .modal-title {
     font-family: 'Gamja Flower', sans-serif;
@@ -338,6 +373,175 @@
   }
   .tip-box strong { color: var(--orange-dark); }
 
+  /* SEARCH */
+  .search-wrap {
+    background: white;
+    border-bottom: 1px solid var(--warm);
+    padding: 14px 16px;
+  }
+  .search-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .search-category-row {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .search-cat-btn {
+    padding: 6px 14px;
+    border-radius: 30px;
+    border: 2px solid var(--warm);
+    background: white;
+    cursor: pointer;
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 13px;
+    color: var(--text-light);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .search-cat-btn:hover { border-color: var(--orange); color: var(--orange); }
+  .search-cat-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+  }
+  .search-input-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .search-box {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    background: var(--cream);
+    border: 2px solid var(--warm);
+    border-radius: 30px;
+    padding: 8px 14px;
+    gap: 8px;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus-within { border-color: var(--orange); }
+  .search-box input {
+    border: none;
+    background: transparent;
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    flex: 1;
+    min-width: 0;
+  }
+  .search-box input::placeholder { color: var(--text-light); }
+  .search-btn {
+    padding: 8px 18px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .search-btn:hover { background: var(--orange-dark); }
+  .reset-btn {
+    display: none;
+    padding: 8px 18px;
+    background: var(--warm);
+    color: var(--text-light);
+    border: none;
+    border-radius: 30px;
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .reset-btn:hover { background: #E8D5C0; }
+
+  /* 검색 결과 */
+  .search-result {
+    display: none;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+  .search-result.active { display: block; animation: fadeIn 0.3s ease; }
+  .search-result-title {
+    font-size: 15px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+  .search-result-title strong { color: var(--orange); }
+  .no-result {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+    font-size: 16px;
+  }
+  .no-result span { font-size: 40px; display: block; margin-bottom: 12px; }
+  .result-category-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brown);
+    margin: 20px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--warm);
+  }
+
+  /* SHARE */
+  .share-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--orange);
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    box-shadow: 0 4px 16px rgba(232,132,90,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 150;
+  }
+  .share-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(232,132,90,0.5);
+  }
+  .share-toast {
+    position: fixed;
+    bottom: 88px;
+    right: 24px;
+    background: var(--brown);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-family: 'Gamja Flower', sans-serif;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 150;
+    white-space: nowrap;
+  }
+  .share-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* FOOTER */
   footer {
     text-align: center;
@@ -364,19 +568,52 @@
   <button class="nav-btn" onclick="showSection('pasta', this)">🍝 파스타</button>
 </nav>
 
-<main>
+<div class="search-wrap">
+  <div class="search-inner">
+    <div class="search-category-row">
+      <button class="search-cat-btn active" onclick="setSearchCat('전체', this)">전체</button>
+      <button class="search-cat-btn" onclick="setSearchCat('main', this)">🍚 메인</button>
+      <button class="search-cat-btn" onclick="setSearchCat('sub', this)">🥗 사이드</button>
+      <button class="search-cat-btn" onclick="setSearchCat('dessert', this)">🍰 디저트</button>
+      <button class="search-cat-btn" onclick="setSearchCat('pasta', this)">🍝 파스타</button>
+      <button class="search-cat-btn" onclick="setSearchCat('ingredient', this)">🧄 재료</button>
+    </div>
+    <div class="search-input-row">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="검색어를 입력하세요..." onkeydown="if(event.key==='Enter') doSearch()">
+      </div>
+      <button class="search-btn" onclick="doSearch()">검색</button>
+      <button class="reset-btn" id="resetBtn" onclick="clearSearch()">초기화</button>
+    </div>
+  </div>
+</div>
+
+<div class="search-result" id="searchResult"></div>
+
+<main id="mainContent">
 
   <!-- 메인 -->
   <div class="section active" id="main">
     <h2 class="section-title">🍚 메인</h2>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterCards('main', '전체', this)">전체</button>
-      <button class="filter-btn" onclick="filterCards('main', '쉬움', this)">⭐ 쉬움</button>
-      <button class="filter-btn" onclick="filterCards('main', '보통', this)">⭐⭐ 보통</button>
-      <button class="filter-btn" onclick="filterCards('main', '어려움', this)">⭐⭐⭐ 어려움</button>
+    <div class="filter-wrap">
+      <div class="filter-row">
+        <span class="filter-label">난이도</span>
+        <button class="filter-btn active" onclick="filterCards('main', 'diff', '전체', this)">전체</button>
+        <button class="filter-btn" onclick="filterCards('main', 'diff', '쉬움', this)">⭐ 쉬움</button>
+        <button class="filter-btn" onclick="filterCards('main', 'diff', '보통', this)">⭐⭐ 보통</button>
+        <button class="filter-btn" onclick="filterCards('main', 'diff', '어려움', this)">⭐⭐⭐ 어려움</button>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">시간</span>
+        <button class="filter-btn active" onclick="filterCards('main', 'time', '전체', this)">전체</button>
+        <button class="filter-btn" onclick="filterCards('main', 'time', '5분', this)">⏱ 5분</button>
+        <button class="filter-btn" onclick="filterCards('main', 'time', '10분', this)">⏱ 10분</button>
+        <button class="filter-btn" onclick="filterCards('main', 'time', '15분이상', this)">⏱ 15분+</button>
+      </div>
     </div>
     <div class="cards" id="main-cards">
-      <div class="card" onclick="openModal('caramelBanana')" data-diff="쉬움">
+      <div class="card" onclick="openModal('caramelBanana')" data-diff="쉬움" data-time="5분">
         <div class="card-thumb main-bg"><img src="caramelbananatoast.png" alt="카라멜 바나나 토스트"></div>
         <div class="card-body">
           <div class="card-name">카라멜 바나나 토스트</div>
@@ -392,11 +629,21 @@
   <!-- 사이드 -->
   <div class="section" id="sub">
     <h2 class="section-title">🥗 사이드</h2>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterCards('sub', '전체', this)">전체</button>
-      <button class="filter-btn" onclick="filterCards('sub', '쉬움', this)">⭐ 쉬움</button>
-      <button class="filter-btn" onclick="filterCards('sub', '보통', this)">⭐⭐ 보통</button>
-      <button class="filter-btn" onclick="filterCards('sub', '어려움', this)">⭐⭐⭐ 어려움</button>
+    <div class="filter-wrap">
+      <div class="filter-row">
+        <span class="filter-label">난이도</span>
+        <button class="filter-btn active" onclick="filterCards('sub', 'diff', '전체', this)">전체</button>
+        <button class="filter-btn" onclick="filterCards('sub', 'diff', '쉬움', this)">⭐ 쉬움</button>
+        <button class="filter-btn" onclick="filterCards('sub', 'diff', '보통', this)">⭐⭐ 보통</button>
+        <button class="filter-btn" onclick="filterCards('sub', 'diff', '어려움', this)">⭐⭐⭐ 어려움</button>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">시간</span>
+        <button class="filter-btn active" onclick="filterCards('sub', 'time', '전체', this)">전체</button>
+        <button class="filter-btn" onclick="filterCards('sub', 'time', '5분', this)">⏱ 5분</button>
+        <button class="filter-btn" onclick="filterCards('sub', 'time', '10분', this)">⏱ 10분</button>
+        <button class="filter-btn" onclick="filterCards('sub', 'time', '15분이상', this)">⏱ 15분+</button>
+      </div>
     </div>
     <div class="cards" id="sub-cards">
       <div class="empty-msg"><span>🥗</span>곧 레시피가 추가될 예정이에요!</div>
@@ -406,11 +653,21 @@
   <!-- 디저트 -->
   <div class="section" id="dessert">
     <h2 class="section-title">🍰 디저트</h2>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterCards('dessert', '전체', this)">전체</button>
-      <button class="filter-btn" onclick="filterCards('dessert', '쉬움', this)">⭐ 쉬움</button>
-      <button class="filter-btn" onclick="filterCards('dessert', '보통', this)">⭐⭐ 보통</button>
-      <button class="filter-btn" onclick="filterCards('dessert', '어려움', this)">⭐⭐⭐ 어려움</button>
+    <div class="filter-wrap">
+      <div class="filter-row">
+        <span class="filter-label">난이도</span>
+        <button class="filter-btn active" onclick="filterCards('dessert', 'diff', '전체', this)">전체</button>
+        <button class="filter-btn" onclick="filterCards('dessert', 'diff', '쉬움', this)">⭐ 쉬움</button>
+        <button class="filter-btn" onclick="filterCards('dessert', 'diff', '보통', this)">⭐⭐ 보통</button>
+        <button class="filter-btn" onclick="filterCards('dessert', 'diff', '어려움', this)">⭐⭐⭐ 어려움</button>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">시간</span>
+        <button class="filter-btn active" onclick="filterCards('dessert', 'time', '전체', this)">전체</button>
+        <button class="filter-btn" onclick="filterCards('dessert', 'time', '5분', this)">⏱ 5분</button>
+        <button class="filter-btn" onclick="filterCards('dessert', 'time', '10분', this)">⏱ 10분</button>
+        <button class="filter-btn" onclick="filterCards('dessert', 'time', '15분이상', this)">⏱ 15분+</button>
+      </div>
     </div>
     <div class="cards" id="dessert-cards">
       <div class="empty-msg"><span>🍰</span>곧 레시피가 추가될 예정이에요!</div>
@@ -420,14 +677,24 @@
   <!-- 파스타 -->
   <div class="section" id="pasta">
     <h2 class="section-title">🍝 파스타</h2>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterCards('pasta', '전체', this)">전체</button>
-      <button class="filter-btn" onclick="filterCards('pasta', '쉬움', this)">⭐ 쉬움</button>
-      <button class="filter-btn" onclick="filterCards('pasta', '보통', this)">⭐⭐ 보통</button>
-      <button class="filter-btn" onclick="filterCards('pasta', '어려움', this)">⭐⭐⭐ 어려움</button>
+    <div class="filter-wrap">
+      <div class="filter-row">
+        <span class="filter-label">난이도</span>
+        <button class="filter-btn active" onclick="filterCards('pasta', 'diff', '전체', this)">전체</button>
+        <button class="filter-btn" onclick="filterCards('pasta', 'diff', '쉬움', this)">⭐ 쉬움</button>
+        <button class="filter-btn" onclick="filterCards('pasta', 'diff', '보통', this)">⭐⭐ 보통</button>
+        <button class="filter-btn" onclick="filterCards('pasta', 'diff', '어려움', this)">⭐⭐⭐ 어려움</button>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">시간</span>
+        <button class="filter-btn active" onclick="filterCards('pasta', 'time', '전체', this)">전체</button>
+        <button class="filter-btn" onclick="filterCards('pasta', 'time', '5분', this)">⏱ 5분</button>
+        <button class="filter-btn" onclick="filterCards('pasta', 'time', '10분', this)">⏱ 10분</button>
+        <button class="filter-btn" onclick="filterCards('pasta', 'time', '15분이상', this)">⏱ 15분+</button>
+      </div>
     </div>
     <div class="cards" id="pasta-cards">
-      <div class="card" onclick="openModal('alfredo')" data-diff="쉬움">
+      <div class="card" onclick="openModal('alfredo')" data-diff="쉬움" data-time="15분이상">
         <div class="card-thumb pasta-bg">🧀</div>
         <div class="card-body">
           <div class="card-name">알프레도 리가토니</div>
@@ -443,8 +710,11 @@
 </main>
 
 <footer>
-  🍳 바쁘다 바빠 든든파파 모닝 레시피 · GitHub Pages로 만들어진 페이지
+  🍳 바쁘다 바빠 든든파파 모닝 레시피
 </footer>
+
+<button class="share-btn" onclick="shareLink()" title="링크 공유">🔗</button>
+<div class="share-toast" id="shareToast">링크가 복사됐어요! 📋</div>
 
 <!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeModal(event)">
@@ -455,6 +725,7 @@
 const recipes = {
   caramelBanana: {
     emoji: '🍌', name: '카라멜 바나나 토스트', time: '5분', diff: '⭐ 쉬움', kcal: null,
+    image: 'caramelbananatoast.png',
     ingredients: ['바나나 1개', '무염버터 10g', '꿀 약간', '식빵 1~2장', '슬라이스 치즈 (선택)'],
     steps: [
       '팬에 무염버터를 두른 뒤, 바나나를 길게 썰어 올린다.',
@@ -481,14 +752,204 @@ const recipes = {
   }
 };
 
-function filterCards(sectionId, diff, btn) {
-  const section = document.getElementById(sectionId);
-  const cards = section.querySelectorAll('.card');
-  const btns = section.querySelectorAll('.filter-btn');
-  btns.forEach(b => b.classList.remove('active'));
+function shareLink() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({
+      title: '바쁘다 바빠 든든파파 모닝 레시피',
+      text: '아빠표 아침식사 레시피 모음이에요 🍳',
+      url: url
+    });
+  } else {
+    navigator.clipboard.writeText(url).then(() => {
+      const toast = document.getElementById('shareToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    });
+  }
+}
+
+function shareRecipe(key) {
+  const url = window.location.origin + window.location.pathname + '#' + key;
+  if (navigator.share) {
+    const r = recipes[key];
+    navigator.share({
+      title: r.name + ' - 든든파파 레시피',
+      text: `${r.name} 레시피 공유해요 🍳`,
+      url: url
+    });
+  } else {
+    navigator.clipboard.writeText(url).then(() => showToast('링크가 복사됐어요! 📋'));
+  }
+}
+
+function copyRecipe(key) {
+  const r = recipes[key];
+  const text = `📌 ${r.name}
+⏱ ${r.time} | ${r.diff}${r.kcal ? ` | 🔥 ${r.kcal}` : ''}
+
+🛒 재료
+${r.ingredients.map(i => `• ${i}`).join('\n')}
+
+👨‍🍳 만드는 법
+${r.steps.map((s, i) => `${i+1}. ${s}`).join('\n')}
+
+💡 팁
+${r.tip}
+
+📱 바쁘다 바빠 든든파파 모닝 레시피
+${window.location.origin + window.location.pathname}`;
+
+  navigator.clipboard.writeText(text).then(() => showToast('레시피가 복사됐어요! 📋'));
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('shareToast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// 해시로 레시피 직접 열기
+window.addEventListener('load', () => {
+  const hash = window.location.hash.replace('#', '');
+  if (hash && recipes[hash]) openModal(hash);
+});
+
+// 카드 카테고리 매핑
+const cardCategory = {
+  caramelBanana: 'main',
+  alfredo: 'pasta'
+};
+
+const categoryName = {
+  main: '🍚 메인',
+  sub: '🥗 사이드',
+  dessert: '🍰 디저트',
+  pasta: '🍝 파스타'
+};
+
+let currentSearchCat = '전체';
+
+function setSearchCat(cat, btn) {
+  currentSearchCat = cat;
+  document.querySelectorAll('.search-cat-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  const input = document.getElementById('searchInput');
+  if (cat === 'ingredient') {
+    input.placeholder = '재료명을 입력하세요... (예: 꿀, 버터)';
+  } else if (cat === '전체') {
+    input.placeholder = '메뉴명 또는 재료로 검색...';
+  } else {
+    input.placeholder = `${categoryName[cat]} 메뉴를 검색하세요...`;
+  }
+}
+
+function doSearch() {
+  const query = document.getElementById('searchInput').value.trim();
+  const searchResult = document.getElementById('searchResult');
+  const mainContent = document.getElementById('mainContent');
+  const resetBtn = document.getElementById('resetBtn');
+
+  if (!query) {
+    alert('검색어를 입력해주세요!');
+    return;
+  }
+
+  mainContent.style.display = 'none';
+  searchResult.classList.add('active');
+  resetBtn.style.display = 'block';
+
+  const results = {};
+
+  Object.entries(recipes).forEach(([key, r]) => {
+    const cat = cardCategory[key];
+
+    // 카테고리 필터
+    if (currentSearchCat !== '전체' && currentSearchCat !== 'ingredient' && cat !== currentSearchCat) return;
+
+    let matched = false;
+
+    if (currentSearchCat === 'ingredient') {
+      // 재료 검색만
+      matched = r.ingredients.some(i => i.includes(query));
+    } else {
+      // 메뉴명 + 재료 검색
+      matched = r.name.includes(query) || r.ingredients.some(i => i.includes(query));
+    }
+
+    if (matched) {
+      if (!results[cat]) results[cat] = [];
+      results[cat].push({ key, ...r });
+    }
+  });
+
+  const totalCount = Object.values(results).flat().length;
+
+  if (totalCount === 0) {
+    searchResult.innerHTML = `
+      <div class="search-result-title">"<strong>${query}</strong>" 검색 결과</div>
+      <div class="no-result"><span>🤔</span>일치하는 레시피가 없어요<br>다른 검색어로 시도해보세요!</div>
+    `;
+    return;
+  }
+
+  let html = `<div class="search-result-title">"<strong>${query}</strong>" 검색 결과 <strong>${totalCount}개</strong></div>`;
+
+  Object.entries(results).forEach(([cat, items]) => {
+    html += `<div class="result-category-label">${categoryName[cat]}</div><div class="cards">`;
+    items.forEach(r => {
+      const thumb = r.image
+        ? `<img src="${r.image}" alt="${r.name}">`
+        : r.emoji;
+      html += `
+        <div class="card" onclick="openModal('${r.key}')">
+          <div class="card-thumb ${cat}-bg">${thumb}</div>
+          <div class="card-body">
+            <div class="card-name">${r.name}</div>
+            <div class="card-meta">
+              <span class="badge badge-time">⏱ ${r.time}</span>
+              <span class="badge badge-diff">${r.diff}</span>
+              ${r.kcal ? `<span class="badge badge-kcal">🔥 ${r.kcal}</span>` : ''}
+            </div>
+          </div>
+        </div>`;
+    });
+    html += `</div>`;
+  });
+
+  searchResult.innerHTML = html;
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('resetBtn').style.display = 'none';
+  document.getElementById('searchResult').classList.remove('active');
+  document.getElementById('searchResult').innerHTML = '';
+  document.getElementById('mainContent').style.display = 'block';
+}
+
+const filterState = {};
+
+function filterCards(sectionId, type, value, btn) {
+  // 버튼 활성화
+  const section = document.getElementById(sectionId);
+  const rowBtns = btn.closest('.filter-row').querySelectorAll('.filter-btn');
+  rowBtns.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // 현재 섹션 필터 상태 저장
+  if (!filterState[sectionId]) filterState[sectionId] = { diff: '전체', time: '전체' };
+  filterState[sectionId][type] = value;
+
+  // 카드 필터링 (OR 조건 - 둘 다 전체거나, 각각 매칭되면 보여줌)
+  const cards = section.querySelectorAll('.card');
+  const { diff, time } = filterState[sectionId];
+
   cards.forEach(card => {
-    if (diff === '전체' || card.dataset.diff === diff) {
+    const matchDiff = diff === '전체' || card.dataset.diff === diff;
+    const matchTime = time === '전체' || card.dataset.time === time;
+    if (matchDiff && matchTime) {
       card.classList.remove('hidden');
     } else {
       card.classList.add('hidden');
@@ -506,13 +967,18 @@ function showSection(id, btn) {
 function openModal(key) {
   const r = recipes[key];
   const modal = document.getElementById('modal');
+  history.replaceState(null, '', '#' + key);
   modal.innerHTML = `
     <div class="modal-header">
       <div>
         <span class="modal-emoji">${r.emoji}</span>
         <div class="modal-title">${r.name}</div>
       </div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-actions">
+        <button class="modal-action-btn" onclick="copyRecipe('${key}')" title="내용 복사">📋</button>
+        <button class="modal-action-btn" onclick="shareRecipe('${key}')" title="링크 공유">🔗</button>
+        <button class="modal-action-btn" onclick="closeModal()" title="닫기">✕</button>
+      </div>
     </div>
     <div class="modal-body">
       <div class="meta-row">
@@ -533,6 +999,7 @@ function openModal(key) {
 function closeModal(e) {
   if (!e || e.target === document.getElementById('overlay')) {
     document.getElementById('overlay').classList.remove('open');
+    history.replaceState(null, '', window.location.pathname);
   }
 }
 </script>
