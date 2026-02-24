@@ -29,6 +29,9 @@
   /* HEADER */
   header {
     background: var(--brown);
+    background-image: url('header.png');
+    background-size: cover;
+    background-position: center;
     padding: 48px 24px 40px;
     text-align: center;
     position: relative;
@@ -37,10 +40,9 @@
   header::before {
     content: '';
     position: absolute;
-    top: -60px; left: -60px;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.04);
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 0;
   }
   header::after {
     content: '';
@@ -49,6 +51,12 @@
     width: 250px; height: 250px;
     border-radius: 50%;
     background: rgba(255,255,255,0.03);
+  }
+  header .header-emoji,
+  header h1,
+  header p {
+    position: relative;
+    z-index: 1;
   }
   .header-emoji {
     font-size: 52px;
