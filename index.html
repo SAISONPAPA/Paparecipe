@@ -495,30 +495,7 @@
     border-bottom: 1px solid var(--warm);
   }
 
-  /* SHARE */
-  .share-btn {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: var(--orange);
-    border: none;
-    cursor: pointer;
-    font-size: 22px;
-    box-shadow: 0 4px 16px rgba(232,132,90,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    z-index: 150;
-  }
-  .share-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(232,132,90,0.5);
-  }
-  .share-toast {
+  /* FOOTER */
     position: fixed;
     bottom: 88px;
     right: 24px;
@@ -702,7 +679,7 @@
     </div>
     <div class="cards" id="pasta-cards">
       <div class="card" onclick="openModal('alfredo')" data-diff="쉬움" data-time="15분이상">
-        <div class="card-thumb pasta-bg">🧀</div>
+        <div class="card-thumb pasta-bg"><img src="alfredorigatoni.png" alt="알프레도 리가토니"></div>
         <div class="card-body">
           <div class="card-name">알프레도 리가토니</div>
           <div class="card-meta">
@@ -720,8 +697,7 @@
   🍳 바쁘다 바빠 든든파파 모닝 레시피
 </footer>
 
-<button class="share-btn" onclick="shareLink()" title="링크 공유">🔗</button>
-<div class="share-toast" id="shareToast">링크가 복사됐어요! 📋</div>
+<div class="share-toast" id="shareToast"></div>
 
 <!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeModal(event)">
@@ -741,8 +717,19 @@ const recipes = {
     ],
     tip: '아이용은 바나나를 먹기 좋은 크기로 잘라주세요. 치즈가 있다면 얇게 슬라이스해서 올리면 더 맛있어요. 팬에 토스트를 눕혀 구울 수 있다면 슬라이스 치즈나 모짜렐라 치즈를 얹어 녹여보세요!'
   },
+  fruitYogurt: {
+    emoji: '🍓', name: '과일 요거트', time: '1분', diff: '⭐ 쉬움', kcal: null,
+    image: 'fruityogurt.png',
+    ingredients: ['냉동과일 적당량', '요거트 적당량'],
+    steps: [
+      '적당량의 냉동과일을 작은 그릇에 옮겨 담은 뒤 전자레인지에 30초 돌린다.',
+      '그릇을 꺼낸 뒤 요거트를 부으면 완성!'
+    ],
+    tip: '요거트 종류는 아무거나 상관없어요. 든든이네는 직접 만든 그릭요거트를 사용해요. 시간 여유가 있다면 냉동과일을 상온에서 20~30분 두어도 좋아요. 생과일이면 더 좋답니다 😊'
+  },
   alfredo: {
     emoji: '🧀', name: '알프레도 리가토니', time: '20분', diff: '⭐ 쉬움', kcal: null,
+    image: 'alfredorigatoni.png',
     ingredients: [
       '리가토니면 100g', '물 1L', '소금 10g',
       '무염버터 20g', '파르미지아노 레지아노 (또는 파마산 치즈) 적당량',
@@ -892,7 +879,7 @@ function doSearch() {
 
     if (matched) {
       if (!results[cat]) results[cat] = [];
-      results[cat].push({ key, ...r });
+      results[cat].push({ key, recipe: r });
     }
   });
 
@@ -910,12 +897,12 @@ function doSearch() {
 
   Object.entries(results).forEach(([cat, items]) => {
     html += `<div class="result-category-label">${categoryName[cat]}</div><div class="cards">`;
-    items.forEach(r => {
+    items.forEach(({ key, recipe: r }) => {
       const thumb = r.image
         ? `<img src="${r.image}" alt="${r.name}">`
         : r.emoji;
       html += `
-        <div class="card" onclick="openModal('${r.key}')">
+        <div class="card" onclick="openModal('${key}')">
           <div class="card-thumb ${cat}-bg">${thumb}</div>
           <div class="card-body">
             <div class="card-name">${r.name}</div>
