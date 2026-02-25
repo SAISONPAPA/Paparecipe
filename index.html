@@ -140,9 +140,8 @@
   .filter-row {
     display: flex;
     align-items: center;
-    gap: 6px;
-    overflow-x: auto;
-    padding-bottom: 2px;
+    gap: 5px;
+    flex-wrap: wrap;
   }
   .filter-label {
     font-size: 11px;
@@ -152,13 +151,13 @@
     min-width: 30px;
   }
   .filter-btn {
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 30px;
     border: 2px solid var(--warm);
     background: white;
     cursor: pointer;
     font-family: 'Gamja Flower', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-light);
     transition: all 0.2s;
     white-space: nowrap;
@@ -388,18 +387,17 @@
   }
   .search-category-row {
     display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding-bottom: 2px;
+    gap: 5px;
+    flex-wrap: wrap;
   }
   .search-cat-btn {
-    padding: 6px 14px;
+    padding: 5px 10px;
     border-radius: 30px;
     border: 2px solid var(--warm);
     background: white;
     cursor: pointer;
     font-family: 'Gamja Flower', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-light);
     white-space: nowrap;
     flex-shrink: 0;
@@ -670,7 +668,16 @@
       </div>
     </div>
     <div class="cards" id="dessert-cards">
-      <div class="empty-msg"><span>🍰</span>곧 레시피가 추가될 예정이에요!</div>
+      <div class="card" onclick="openModal('fruitYogurt')" data-diff="쉬움" data-time="5분">
+        <div class="card-thumb dessert-bg"><img src="fruityogurt.png" alt="과일 요거트"></div>
+        <div class="card-body">
+          <div class="card-name">과일 요거트</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 1분</span>
+            <span class="badge badge-diff">⭐ 쉬움</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -752,6 +759,10 @@ const recipes = {
   }
 };
 
+function safeReplaceState(hash) {
+  try { history.replaceState(null, '', hash); } catch(e) {}
+}
+
 function shareLink() {
   const url = window.location.href;
   if (navigator.share) {
@@ -819,6 +830,7 @@ window.addEventListener('load', () => {
 // 카드 카테고리 매핑
 const cardCategory = {
   caramelBanana: 'main',
+  fruitYogurt: 'dessert',
   alfredo: 'pasta'
 };
 
@@ -962,12 +974,14 @@ function showSection(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+  document.getElementById('mainContent').style.display = 'block';
+  document.getElementById('searchResult').classList.remove('active');
 }
 
 function openModal(key) {
   const r = recipes[key];
   const modal = document.getElementById('modal');
-  history.replaceState(null, '', '#' + key);
+  safeReplaceState('#' + key);
   modal.innerHTML = `
     <div class="modal-header">
       <div>
@@ -999,7 +1013,7 @@ function openModal(key) {
 function closeModal(e) {
   if (!e || e.target === document.getElementById('overlay')) {
     document.getElementById('overlay').classList.remove('open');
-    history.replaceState(null, '', window.location.pathname);
+    safeReplaceState(window.location.pathname);
   }
 }
 </script>
