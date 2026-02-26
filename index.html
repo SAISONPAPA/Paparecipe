@@ -674,7 +674,16 @@
       </div>
     </div>
     <div class="cards" id="sub-cards">
-      <div class="empty-msg"><span>🥗</span>곧 레시피가 추가될 예정이에요!</div>
+      <div class="card" onclick="openModal('frittata')" data-diff="보통" data-time="10분">
+        <div class="card-thumb sub-bg"><img src="frittata.png" alt="프리타타"></div>
+        <div class="card-body">
+          <div class="card-name">프리타타</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 10분</span>
+            <span class="badge badge-diff">⭐⭐ 보통</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -790,6 +799,18 @@ const recipes = {
     ],
     tip: '요거트 종류는 아무거나 상관없어요. 든든이네는 직접 만든 그릭요거트를 사용해요. 시간 여유가 있다면 냉동과일을 상온에서 20~30분 두어도 좋아요. 생과일이면 더 좋답니다 😊'
   },
+  frittata: {
+    emoji: '🍳', name: '프리타타', time: '10분', diff: '⭐⭐ 보통', kcal: null,
+    image: 'frittata.png',
+    ingredients: ['냉동야채 적당량', '고기 적당량 (베이컨 또는 다짐육)', '계란 (인원수대로)', '우유 약간 (계란의 1/3 정도)', '소금 약간', '올리브유 약간'],
+    steps: [
+      '달군 팬에 올리브유를 두르고 냉동야채와 고기를 함께 볶는다. (베이컨은 염지되어 있으니 다짐육도 좋아요. 든든이네는 코스트코/트레이더스 다짐육을 사용해요.)',
+      '볼에 계란을 인원수대로 깨서 넣고, 우유를 계란의 1/3 정도 넣는다. 소금으로 간을 맞추고 잘 저어준다.',
+      '야채와 고기가 다 익으면 불을 약불로 줄이고 계란물을 팬에 붓는다. 뚜껑을 덮고 5~8분 기다린다.',
+      '계란이 더이상 흘러내리지 않고 통글통글 부드럽게 되었으면 완성!'
+    ],
+    tip: '계란 밑면이 타지 않도록 조심하세요! 약불에서 중간중간 밑면을 확인하되, 뚜껑을 너무 자주 열면 윗부분이 덜 익을 수 있으니 적당히! 방울토마토가 있다면 꼭 넣어보세요. 뚜껑 덮기 전에 루꼴라를 넣어도 좋아요.'
+  },
   alfredo: {
     emoji: '🧀', name: '알프레도 리가토니', time: '20분', diff: '⭐ 쉬움', kcal: null,
     image: 'alfredorigatoni.png',
@@ -882,6 +903,7 @@ const cardCategory = {
   caramelBanana: 'main',
   crabNurungji: 'main',
   fruitYogurt: 'dessert',
+  frittata: 'sub',
   alfredo: 'pasta'
 };
 
