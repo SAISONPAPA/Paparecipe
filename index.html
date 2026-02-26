@@ -396,44 +396,64 @@
   .search-wrap {
     background: white;
     border-bottom: 1px solid var(--warm);
-    padding: 14px 16px;
+    padding: 12px 16px;
+    position: relative;
+    z-index: 101;
   }
   .search-inner {
     max-width: 900px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .search-category-row {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-  }
-  .search-cat-btn {
-    padding: 5px 10px;
-    border-radius: 30px;
-    border: 2px solid var(--warm);
-    background: white;
-    cursor: pointer;
-    font-family: 'Gamja Flower', sans-serif;
-    font-size: 12px;
-    color: var(--text-light);
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: all 0.2s;
-  }
-  .search-cat-btn:hover { border-color: var(--orange); color: var(--orange); }
-  .search-cat-btn.active {
-    background: var(--orange);
-    border-color: var(--orange);
-    color: white;
-  }
-  .search-input-row {
-    display: flex;
     gap: 8px;
     align-items: center;
   }
+  .search-dropdown-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .search-dropdown-btn {
+    padding: 8px 12px;
+    background: var(--cream);
+    border: 2px solid var(--warm);
+    border-radius: 30px;
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: border-color 0.2s;
+  }
+  .search-dropdown-btn:hover { border-color: var(--orange); }
+  .search-dropdown-btn.open { border-color: var(--orange); background: white; }
+  .search-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: white;
+    border: 2px solid var(--warm);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(92,61,46,0.12);
+    min-width: 130px;
+    z-index: 200;
+  }
+  .search-dropdown-menu.open { display: block; animation: fadeIn 0.15s ease; }
+  .search-dropdown-item {
+    padding: 10px 16px;
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 14px;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .search-dropdown-item:hover { background: var(--cream); color: var(--orange); }
+  .search-dropdown-item.active { color: var(--orange); font-weight: 700; background: #FFF5F0; }
+
   .search-box {
     display: flex;
     align-items: center;
@@ -472,7 +492,7 @@
   .search-btn:hover { background: var(--orange-dark); }
   .reset-btn {
     display: none;
-    padding: 8px 18px;
+    padding: 8px 14px;
     background: var(--warm);
     color: var(--text-light);
     border: none;
@@ -565,22 +585,25 @@
 
 <div class="search-wrap">
   <div class="search-inner">
-    <div class="search-category-row">
-      <button class="search-cat-btn active" onclick="setSearchCat('전체', this)">전체</button>
-      <button class="search-cat-btn" onclick="setSearchCat('main', this)">🍚 메인</button>
-      <button class="search-cat-btn" onclick="setSearchCat('sub', this)">🥗 사이드</button>
-      <button class="search-cat-btn" onclick="setSearchCat('dessert', this)">🍰 디저트</button>
-      <button class="search-cat-btn" onclick="setSearchCat('pasta', this)">🍝 파스타</button>
-      <button class="search-cat-btn" onclick="setSearchCat('ingredient', this)">🧄 재료</button>
-    </div>
-    <div class="search-input-row">
-      <div class="search-box">
-        <span>🔍</span>
-        <input type="text" id="searchInput" placeholder="검색어를 입력하세요..." onkeydown="if(event.key==='Enter') doSearch()">
+    <div class="search-dropdown-wrap">
+      <button class="search-dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
+        <span id="dropdownLabel">전체</span> ▾
+      </button>
+      <div class="search-dropdown-menu" id="dropdownMenu">
+        <div class="search-dropdown-item active" onclick="selectCat('전체', '전체', this)">전체</div>
+        <div class="search-dropdown-item" onclick="selectCat('main', '🍚 메인', this)">🍚 메인</div>
+        <div class="search-dropdown-item" onclick="selectCat('sub', '🥗 사이드', this)">🥗 사이드</div>
+        <div class="search-dropdown-item" onclick="selectCat('dessert', '🍰 디저트', this)">🍰 디저트</div>
+        <div class="search-dropdown-item" onclick="selectCat('pasta', '🍝 파스타', this)">🍝 파스타</div>
+        <div class="search-dropdown-item" onclick="selectCat('ingredient', '🧄 재료', this)">🧄 재료</div>
       </div>
-      <button class="search-btn" onclick="doSearch()">검색</button>
-      <button class="reset-btn" id="resetBtn" onclick="clearSearch()">초기화</button>
     </div>
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" id="searchInput" placeholder="검색어를 입력하세요..." onkeydown="if(event.key==='Enter') doSearch()">
+    </div>
+    <button class="search-btn" onclick="doSearch()">검색</button>
+    <button class="reset-btn" id="resetBtn" onclick="clearSearch()">초기화</button>
   </div>
 </div>
 
@@ -871,19 +894,35 @@ const categoryName = {
 
 let currentSearchCat = '전체';
 
-function setSearchCat(cat, btn) {
+function toggleDropdown() {
+  const btn = document.getElementById('dropdownBtn');
+  const menu = document.getElementById('dropdownMenu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+}
+
+function selectCat(cat, label, item) {
   currentSearchCat = cat;
-  document.querySelectorAll('.search-cat-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document.getElementById('dropdownLabel').textContent = label;
+  document.querySelectorAll('.search-dropdown-item').forEach(i => i.classList.remove('active'));
+  item.classList.add('active');
+  toggleDropdown();
   const input = document.getElementById('searchInput');
   if (cat === 'ingredient') {
     input.placeholder = '재료명을 입력하세요... (예: 꿀, 버터)';
-  } else if (cat === '전체') {
-    input.placeholder = '메뉴명 또는 재료로 검색...';
   } else {
-    input.placeholder = `${categoryName[cat]} 메뉴를 검색하세요...`;
+    input.placeholder = '검색어를 입력하세요...';
   }
 }
+
+// 드롭다운 외부 클릭 시 닫기
+document.addEventListener('click', (e) => {
+  const wrap = document.querySelector('.search-dropdown-wrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('dropdownBtn').classList.remove('open');
+    document.getElementById('dropdownMenu').classList.remove('open');
+  }
+});
 
 function doSearch() {
   const query = document.getElementById('searchInput').value.trim();
