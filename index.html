@@ -598,6 +598,16 @@
           </div>
         </div>
       </div>
+      <div class="card" onclick="openModal('crabNurungji')" data-diff="쉬움" data-time="15분이상">
+        <div class="card-thumb main-bg"><img src="nooroongji.png" alt="게살 누룽지"></div>
+        <div class="card-body">
+          <div class="card-name">게살 누룽지</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 15분</span>
+            <span class="badge badge-diff">⭐ 쉬움</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -717,6 +727,16 @@ const recipes = {
     ],
     tip: '아이용은 바나나를 먹기 좋은 크기로 잘라주세요. 치즈가 있다면 얇게 슬라이스해서 올리면 더 맛있어요. 팬에 토스트를 눕혀 구울 수 있다면 슬라이스 치즈나 모짜렐라 치즈를 얹어 녹여보세요!'
   },
+  crabNurungji: {
+    emoji: '🍚', name: '게살 누룽지', time: '15분', diff: '⭐ 쉬움', kcal: null,
+    image: 'nooroongji.png',
+    ingredients: ['누룽지 80g', '물 800ml', '냉동야채 적당량', '냉동게살 30g'],
+    steps: [
+      '냄비에 물과 누룽지를 넣고 12분 정도 끓인다. 중간중간 잘 저어준다.',
+      '냉동야채와 냉동게살을 넣고 3분 더 끓이면 완성!'
+    ],
+    tip: '게살이 짭짤해서 별도의 간은 필요 없어요. 중간중간 농도를 보며 물 조절을 해주세요. 마지막에 계란을 하나 풀어 휘리릭 넣으면 풍미가 극대화돼요!'
+  },
   fruitYogurt: {
     emoji: '🍓', name: '과일 요거트', time: '1분', diff: '⭐ 쉬움', kcal: null,
     image: 'fruityogurt.png',
@@ -817,6 +837,7 @@ window.addEventListener('load', () => {
 // 카드 카테고리 매핑
 const cardCategory = {
   caramelBanana: 'main',
+  crabNurungji: 'main',
   fruitYogurt: 'dessert',
   alfredo: 'pasta'
 };
