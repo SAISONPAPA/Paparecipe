@@ -557,6 +557,51 @@
     transform: translateY(0);
   }
 
+  /* HOME */
+  .home-section {
+    display: block;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+  }
+  .home-section.hidden { display: none; }
+
+  .home-intro {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 32px;
+    box-shadow: 0 2px 12px rgba(92,61,46,0.08);
+    border: 1px solid rgba(92,61,46,0.07);
+    margin-bottom: 36px;
+    line-height: 2;
+    font-size: 14px;
+    color: var(--text);
+    text-align: center;
+    word-break: keep-all;
+  }
+  .home-intro .intro-ref {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--text-light);
+    border-top: 1px solid var(--warm);
+    padding-top: 12px;
+  }
+  .home-recent-title {
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 18px;
+    color: var(--brown);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .home-recent-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--warm);
+  }
+
   /* FOOTER */
   footer {
     text-align: center;
@@ -570,14 +615,14 @@
 </head>
 <body>
 
-<header>
+<header onclick="showHome()" style="cursor:pointer;">
   <span class="header-emoji">🍳</span>
   <h1>바쁘다 바빠 든든파파 모닝 레시피</h1>
   <p>아빠표 아침식사, 오늘도 든든하게!</p>
 </header>
 
 <nav class="nav">
-  <button class="nav-btn active" onclick="showSection('main', this)">🍚 메인</button>
+  <button class="nav-btn" onclick="showSection('main', this)">🍚 메인</button>
   <button class="nav-btn" onclick="showSection('sub', this)">🥗 사이드</button>
   <button class="nav-btn" onclick="showSection('dessert', this)">🍰 디저트</button>
   <button class="nav-btn" onclick="showSection('pasta', this)">🍝 파스타</button>
@@ -609,7 +654,20 @@
 
 <div class="search-result" id="searchResult"></div>
 
-<main id="mainContent">
+<div class="home-section" id="homeSection">
+  <div class="home-intro">
+    <img src="main.png" alt="든든파파" style="width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:12px; margin-bottom:20px; display:block;">
+    안녕하세요 😊 든든파파입니다.<br>
+    매일 아침 등원 전쟁 속에서도 가족들을 든든하게 챙겨주고 싶은 마음으로 만든 레시피 공간이에요.<br>
+    세상 모든 엄빠들과 사랑둥이들의 아침을 응원합니다!<br><br>
+    <strong>Enjoy your breakfast! 🍳</strong>
+    <div class="intro-ref">👶 든든이는 2023년 12월생이에요</div>
+  </div>
+  <div class="home-recent-title">🕐 최근 레시피</div>
+  <div class="cards" id="recentCards"></div>
+</div>
+
+<main id="mainContent" style="display:none;">
 
   <!-- 메인 -->
   <div class="section active" id="main">
@@ -923,6 +981,7 @@ function showToast(msg) {
 
 // 해시로 레시피 직접 열기
 window.addEventListener('load', () => {
+  renderRecentRecipes();
   const hash = window.location.hash.replace('#', '');
   if (hash && recipes[hash]) openModal(hash);
 });
@@ -930,11 +989,11 @@ window.addEventListener('load', () => {
 // 카드 카테고리 매핑
 const cardCategory = {
   caramelBanana: 'main',
-  crabNurungji: 'main',
-  eggInHell: 'main',
+  alfredo: 'pasta',
   fruitYogurt: 'dessert',
+  crabNurungji: 'main',
   frittata: 'sub',
-  alfredo: 'pasta'
+  eggInHell: 'main'
 };
 
 const categoryName = {
@@ -1088,12 +1147,45 @@ function filterCards(sectionId, type, value, btn) {
   });
 }
 
+function showHome() {
+  document.getElementById('homeSection').classList.remove('hidden');
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('searchResult').classList.remove('active');
+  document.getElementById('resetBtn').style.display = 'none';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  renderRecentRecipes();
+}
+
+function renderRecentRecipes() {
+  const keys = Object.keys(cardCategory);
+  const recent = keys.slice(-3).reverse();
+  const container = document.getElementById('recentCards');
+  container.innerHTML = recent.map(key => {
+    const r = recipes[key];
+    const cat = cardCategory[key];
+    const thumb = r.image ? `<img src="${r.image}" alt="${r.name}">` : r.emoji;
+    return `
+      <div class="card" onclick="openModal('${key}')">
+        <div class="card-thumb ${cat}-bg">${thumb}</div>
+        <div class="card-body">
+          <div class="card-name">${r.name}</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ ${r.time}</span>
+            <span class="badge badge-diff">${r.diff}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
 function showSection(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
   document.getElementById('mainContent').style.display = 'block';
+  document.getElementById('homeSection').classList.add('hidden');
   document.getElementById('searchResult').classList.remove('active');
 }
 
