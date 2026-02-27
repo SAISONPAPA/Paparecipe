@@ -651,6 +651,16 @@
           </div>
         </div>
       </div>
+      <div class="card" onclick="openModal('eggInHell')" data-diff="쉬움" data-time="15분이상">
+        <div class="card-thumb main-bg"><img src="egginhell.png" alt="에그인헬"></div>
+        <div class="card-body">
+          <div class="card-name">에그인헬</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 15분</span>
+            <span class="badge badge-diff">⭐ 쉬움</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -757,6 +767,11 @@
 
 <footer>
   🍳 바쁘다 바빠 든든파파 모닝 레시피
+  <br>
+  <a href="https://www.instagram.com/luia_231229?igsh=MTlieDlmdHhiaml4dg==" target="_blank" style="color: var(--orange); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 5px; margin-top: 6px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    든든이네 인스타그램
+  </a>
 </footer>
 
 <div class="share-toast" id="shareToast"></div>
@@ -778,6 +793,20 @@ const recipes = {
       '바싹 구운 토스트 위에 구운 바나나를 올려 완성!'
     ],
     tip: '아이용은 바나나를 먹기 좋은 크기로 잘라주세요. 치즈가 있다면 얇게 슬라이스해서 올리면 더 맛있어요. 팬에 토스트를 눕혀 구울 수 있다면 슬라이스 치즈나 모짜렐라 치즈를 얹어 녹여보세요!'
+  },
+  eggInHell: {
+    emoji: '🍅', name: '에그인헬', time: '15분', diff: '⭐ 쉬움', kcal: null,
+    image: 'egginhell.png',
+    ingredients: ['토마토 소스 300ml', '소고기 다짐육 150g', '냉동 새우 8마리', '냉동 야채 적당량', '계란 2개', '마늘 1~2개', '물 50~100ml', '올리브유 약간'],
+    steps: [
+      '팬에 올리브유를 살짝 두르고 잘게 다진 마늘과 다짐육을 볶는다. 고기 수분이 날아가고 색이 예쁘게 날 때까지 볶는다.',
+      '고기가 익으면 새우를 넣어 앞뒤로 색이 변할 때까지 볶은 뒤, 새우만 따로 잠시 빼놓는다.',
+      '고기가 남은 팬에 토마토 소스, 냉동야채, 물 50ml 정도를 넣고 보글보글 끓인다.',
+      '소스가 전체적으로 끓으면 새우를 다시 넣고 섞어준다.',
+      '숟가락으로 공간을 살짝 만들고, 그 공간에 계란을 톡 떨어뜨린다.',
+      '뚜껑을 덮고 약불로 3~5분 기다린다. 흰자가 불투명해지면 완성!'
+    ],
+    tip: '냉동 다짐육은 전날 밤 냉장고로 옮겨 해동하고, 냉동 새우는 요리 20분 전에 찬물에 레몬즙과 함께 해동하세요. 버섯을 잘게 다져 넣으면 맛이 더 풍부해져요. 토마토 소스는 RAO\'s 마리나라 소스 추천 (간이 되어있어서 별도 시즈닝 불필요). 방울토마토 다져 넣기, 마지막에 모짜렐라 치즈 올리면 풍미 극대화!'
   },
   crabNurungji: {
     emoji: '🍚', name: '게살 누룽지', time: '15분', diff: '⭐ 쉬움', kcal: null,
@@ -902,6 +931,7 @@ window.addEventListener('load', () => {
 const cardCategory = {
   caramelBanana: 'main',
   crabNurungji: 'main',
+  eggInHell: 'main',
   fruitYogurt: 'dessert',
   frittata: 'sub',
   alfredo: 'pasta'
