@@ -737,6 +737,16 @@
           </div>
         </div>
       </div>
+      <div class="card" onclick="openModal('friedRice')" data-diff="보통" data-time="15분이상">
+        <div class="card-thumb main-bg"><img src="friedrice.png" alt="고슬고슬 볶음밥"></div>
+        <div class="card-body">
+          <div class="card-name">고슬고슬 볶음밥</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 15분</span>
+            <span class="badge badge-diff">⭐⭐ 보통</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -929,6 +939,21 @@ const recipes = {
     ],
     tip: '사과 껍질에는 영양분이 많으니 깨끗하게 씻어 껍질째 먹어요. 땅콩버터는 가급적 원재료에 땅콩 100%인 것을 고르세요!'
   },
+  friedRice: {
+    emoji: '🍳', name: '고슬고슬 볶음밥', time: '15분', diff: '⭐⭐ 보통', kcal: null,
+    image: 'friedrice.png',
+    ingredients: ['차가운 밥 적당량', '계란 2개', '소금 한 꼬집', '다짐육 적당량', '당근, 쪽파, 버섯 등 야채', '간장 1스푼', '굴소스 1스푼', '참기름 약간'],
+    steps: [
+      '냉장고에서 차가운 밥을 꺼내 볼에 담고, 계란 2개와 소금 한 꼬집을 넣어 계란물을 적셔 놓는다.',
+      '대파, 당근, 버섯, 애호박 등 다양한 야채를 작은 크기로 다진다.',
+      '팬에 적당량의 기름을 두르고 다진 야채를 중불에서 볶는다.',
+      '야채가 적당히 익으면 다짐육을 넣고 잘 구워준다.',
+      '다짐육이 구워지면 간장을 한 스푼 넣고 살짝 태운 뒤 재료들과 섞어준다.',
+      '강불로 올리고 밥을 넣어 볶아준다.',
+      '굴소스를 한 스푼 넣고 강불에서 계속 볶다가, 모든 재료가 잘 어우러지면 참기름을 넣어 마무리하면 완성!'
+    ],
+    tip: '전날 야채를 미리 다져놓으면 아침이 훨씬 편해요. 밥을 넣고 볶을 때는 최대한 강불에서 볶아야 수분이 날아가 고슬고슬해져요. 갓 지은 밥보다 차가운 밥이 수분이 없어서 훨씬 맛있어요!'
+  },
   parsleyMushroom: {
     emoji: '🍄', name: '파슬리 버섯 볶음', time: '5분', diff: '⭐ 쉬움', kcal: null,
     image: 'parsleyfungi.png',
@@ -1096,7 +1121,8 @@ const cardCategory = {
   peanutButterApple: 'dessert',
   aglioOlio: 'pasta',
   overnightOatmeal: 'main',
-  parsleyMushroom: 'sub'
+  parsleyMushroom: 'sub',
+  friedRice: 'main'
 };
 
 const categoryName = {
