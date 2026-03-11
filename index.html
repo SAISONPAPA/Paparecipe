@@ -869,6 +869,16 @@
       </div>
     </div>
     <div class="cards" id="pasta-cards">
+      <div class="card" onclick="openModal('cacioEPepe')" data-diff="어려움" data-time="15분이상">
+        <div class="card-thumb pasta-bg"><img src="cacioepepe.png" alt="카쵸에페페"></div>
+        <div class="card-body">
+          <div class="card-name">카쵸에페페</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 20분</span>
+            <span class="badge badge-diff">⭐⭐⭐ 어려움</span>
+          </div>
+        </div>
+      </div>
       <div class="card" onclick="openModal('aglioOlio')" data-diff="보통" data-time="15분이상">
         <div class="card-thumb pasta-bg"><img src="aglioeolio.png" alt="알리오 올리오"></div>
         <div class="card-body">
@@ -922,6 +932,21 @@ const recipes = {
       '바싹 구운 토스트 위에 구운 바나나를 올려 완성!'
     ],
     tip: '아이용은 바나나를 먹기 좋은 크기로 잘라주세요. 치즈가 있다면 얇게 슬라이스해서 올리면 더 맛있어요. 팬에 토스트를 눕혀 구울 수 있다면 슬라이스 치즈나 모짜렐라 치즈를 얹어 녹여보세요!'
+  },
+  cacioEPepe: {
+    emoji: '🧀', name: '카쵸에페페', time: '20분', diff: '⭐⭐⭐ 어려움', kcal: null,
+    image: 'cacioepepe.png',
+    ingredients: ['페코리노 로마노 치즈 적당량', '통후추 (후추 그라인더)', '물 1L', '소금 10g', '롱파스타 100g'],
+    steps: [
+      '페코리노 로마노 치즈를 치즈 그레이터로 얇고 곱게 간다.',
+      '장갑을 끼고 덩어리진 치즈를 손으로 잘게 부숴준다.',
+      '물을 끓이기 시작한다. 적당히 따뜻해진 물을 조금씩 치즈에 부어가며 크리미한 소스를 만든다.',
+      '후추 그라인더로 후추를 갈고, 아무것도 두르지 않은 팬에서 1분 정도 볶아 미뇨넷을 만든 뒤 소스에 넣는다.',
+      '물에 소금 10g을 넣고 팔팔 끓인 뒤, 파스타 100g을 넣고 봉지 조리시간보다 3분 적게 끓인다.',
+      '팬에 면수와 파스타를 넣고 남은 3분을 끓인다.',
+      '면수가 자작하게 남으면 미리 만든 치즈 소스를 넣고 만테까레하면 완성!'
+    ],
+    tip: '재료는 단순하지만 소스 만드는 과정이 극악이에요 😅 치즈를 정말 곱게 갈지 않으면 소스가 뭉쳐버려요. 물은 계량보다 조금씩 부어가며 농도를 맞추는 게 핵심! 볶은 후추(미뇨넷)는 통후추를 먼저 그라인더로 갈고 볶으면 편해요. 체력 좋은 날에 도전하세요… 한 번에 성공하기 쉽지 않아요 💪'
   },
   aglioOlio: {
     emoji: '🧄', name: '알리오 올리오', time: '15분', diff: '⭐⭐ 보통', kcal: null,
@@ -1144,7 +1169,8 @@ const cardCategory = {
   overnightOatmeal: 'main',
   parsleyMushroom: 'sub',
   friedRice: 'main',
-  yubuChobap: 'main'
+  yubuChobap: 'main',
+  cacioEPepe: 'pasta'
 };
 
 const categoryName = {
