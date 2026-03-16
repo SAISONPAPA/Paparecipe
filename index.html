@@ -781,6 +781,16 @@
       </div>
     </div>
     <div class="cards" id="sub-cards">
+      <div class="card" onclick="openModal('cobbSalad')" data-diff="쉬움" data-time="5분">
+        <div class="card-thumb sub-bg"><img src="cobbsalad.png" alt="콥 샐러드"></div>
+        <div class="card-body">
+          <div class="card-name">콥 샐러드</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 5분</span>
+            <span class="badge badge-diff">⭐ 쉬움</span>
+          </div>
+        </div>
+      </div>
       <div class="card" onclick="openModal('parsleyMushroom')" data-diff="쉬움" data-time="5분">
         <div class="card-thumb sub-bg"><img src="parsleyfungi.png" alt="파슬리 버섯 볶음"></div>
         <div class="card-body">
@@ -1000,6 +1010,17 @@ const recipes = {
     ],
     tip: '전날 야채를 미리 다져놓으면 아침이 훨씬 편해요. 밥을 넣고 볶을 때는 최대한 강불에서 볶아야 수분이 날아가 고슬고슬해져요. 갓 지은 밥보다 차가운 밥이 수분이 없어서 훨씬 맛있어요!'
   },
+  cobbSalad: {
+    emoji: '🥗', name: '콥 샐러드', time: '5분', diff: '⭐ 쉬움', kcal: null,
+    image: 'cobbsalad.png',
+    ingredients: ['샐러드용 채소', '방울토마토 적당량', '콘 옥수수 적당량', '베이크드 빈 적당량', '올리브 적당량', '닭가슴살 적당량', '소스 (올리브유 + 화이트와인 식초 + 꿀 또는 과일퓨레)'],
+    steps: [
+      '샐러드 채소를 깨끗하게 씻고 접시에 담는다.',
+      '채소 위에 방울토마토, 옥수수, 올리브, 베이크드 빈, 닭가슴살을 가지런히 올린다.',
+      '소스를 뿌리면 완성!'
+    ],
+    tip: '집에 있는 다양한 재료를 활용해도 좋아요. 크게 어렵지 않은 요리! 🥗'
+  },
   parsleyMushroom: {
     emoji: '🍄', name: '파슬리 버섯 볶음', time: '5분', diff: '⭐ 쉬움', kcal: null,
     image: 'parsleyfungi.png',
@@ -1170,7 +1191,8 @@ const cardCategory = {
   parsleyMushroom: 'sub',
   friedRice: 'main',
   yubuChobap: 'main',
-  cacioEPepe: 'pasta'
+  cacioEPepe: 'pasta',
+  cobbSalad: 'sub'
 };
 
 const categoryName = {
