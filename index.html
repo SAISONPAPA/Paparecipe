@@ -697,6 +697,16 @@
       </div>
     </div>
     <div class="cards" id="main-cards">
+      <div class="card" onclick="openModal('raguBread')" data-diff="쉬움" data-time="5분">
+        <div class="card-thumb main-bg"><img src="ragubread.png" alt="라구 브레드"></div>
+        <div class="card-body">
+          <div class="card-name">라구 브레드</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 5분</span>
+            <span class="badge badge-diff">⭐ 쉬움</span>
+          </div>
+        </div>
+      </div>
       <div class="card" onclick="openModal('yubuChobap')" data-diff="쉬움" data-time="5분">
         <div class="card-thumb main-bg"><img src="yubu.png" alt="유부초밥"></div>
         <div class="card-body">
@@ -984,6 +994,16 @@ const recipes = {
     ],
     tip: '사과 껍질에는 영양분이 많으니 깨끗하게 씻어 껍질째 먹어요. 땅콩버터는 가급적 원재료에 땅콩 100%인 것을 고르세요!'
   },
+  raguBread: {
+    emoji: '🍞', name: '라구 브레드', time: '5분', diff: '⭐ 쉬움', kcal: null,
+    image: 'ragubread.png',
+    ingredients: ['식빵', '라구소스 (시판)', '치즈 적당량'],
+    steps: [
+      '식빵에 라구소스를 바르고 치즈를 올린다.',
+      '토스트기에 눕혀서 올린 뒤 원하는 굽기만큼 구우면 완성!'
+    ],
+    tip: '올리브나 방울토마토를 슬라이스해서 올려도 맛있어요. 시간도 없는데 시판 라구소스를 적극 활용하자 😊'
+  },
   yubuChobap: {
     emoji: '🍱', name: '유부초밥', time: '5분', diff: '⭐ 쉬움', kcal: null,
     image: 'yubu.png',
@@ -1192,7 +1212,8 @@ const cardCategory = {
   friedRice: 'main',
   yubuChobap: 'main',
   cacioEPepe: 'pasta',
-  cobbSalad: 'sub'
+  cobbSalad: 'sub',
+  raguBread: 'main'
 };
 
 const categoryName = {
