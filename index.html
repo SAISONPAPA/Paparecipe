@@ -697,6 +697,16 @@
       </div>
     </div>
     <div class="cards" id="main-cards">
+      <div class="card" onclick="openModal('eggMayo')" data-diff="쉬움" data-time="15분이상">
+        <div class="card-thumb main-bg"><img src="eggmayo.png" alt="에그마요 샌드위치"></div>
+        <div class="card-body">
+          <div class="card-name">에그마요 샌드위치</div>
+          <div class="card-meta">
+            <span class="badge badge-time">⏱ 20분</span>
+            <span class="badge badge-diff">⭐ 쉬움</span>
+          </div>
+        </div>
+      </div>
       <div class="card" onclick="openModal('raguBread')" data-diff="쉬움" data-time="5분">
         <div class="card-thumb main-bg"><img src="ragubread.png" alt="라구 브레드"></div>
         <div class="card-body">
@@ -994,6 +1004,19 @@ const recipes = {
     ],
     tip: '사과 껍질에는 영양분이 많으니 깨끗하게 씻어 껍질째 먹어요. 땅콩버터는 가급적 원재료에 땅콩 100%인 것을 고르세요!'
   },
+  eggMayo: {
+    emoji: '🥚', name: '에그마요 샌드위치', time: '20분', diff: '⭐ 쉬움', kcal: null,
+    image: 'eggmayo.png',
+    ingredients: ['계란 2개 (1인분 기준)', '마요네즈 적당량', '소금 약간', '설탕 약간', '후추 약간', '화이트와인 식초 약간', '식빵', '치즈 2장', '샐러드 채소', '토마토'],
+    steps: [
+      '끓는 물에 계란을 넣고 12분 삶아 완숙으로 만든다.',
+      '완숙 계란을 차가운 물에 식힌 뒤 껍질을 까고 볼에 넣는다.',
+      '노른자와 흰자가 골고루 섞이도록 잘게 으깨고, 마요네즈와 소금, 설탕, 후추, 식초를 넣어 소스를 만든다.',
+      '식빵과 치즈를 4등분 한다.',
+      '식빵에 치즈를 올리고 샐러드 채소, 토마토, 에그마요 소스 순으로 올린다. 다시 치즈 한 장을 올리고 식빵으로 덮으면 완성!'
+    ],
+    tip: '식초 대신 홀그레인 머스타드를 써도 좋아요. 소금, 설탕, 후추는 약간씩만! 아침에 바쁘니 소스는 전날 밤에 미리 만들어 밀폐 후 냉장 보관하면 편해요 😊'
+  },
   raguBread: {
     emoji: '🍞', name: '라구 브레드', time: '5분', diff: '⭐ 쉬움', kcal: null,
     image: 'ragubread.png',
@@ -1213,7 +1236,8 @@ const cardCategory = {
   yubuChobap: 'main',
   cacioEPepe: 'pasta',
   cobbSalad: 'sub',
-  raguBread: 'main'
+  raguBread: 'main',
+  eggMayo: 'main'
 };
 
 const categoryName = {
