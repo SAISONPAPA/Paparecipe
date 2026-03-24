@@ -1469,11 +1469,13 @@ function openModal(key) {
   `;
   document.getElementById('overlay').classList.add('open');
   document.getElementById('modal').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(e) {
   if (!e || e.target === document.getElementById('overlay')) {
     document.getElementById('overlay').classList.remove('open');
+    document.body.style.overflow = '';
     safeReplaceState(window.location.pathname);
   }
 }
